@@ -49,6 +49,21 @@ public:
 	UFUNCTION(BlueprintCallable, Category = QueueManager)
 		bool HandleDirtyCandidate(UQueueCandidateComponent* QueueCandidateComp);
 
+	/** Peaks at the First Candidate in the Queue
+	 * @return Queue Candidate Component
+	 */
+	UFUNCTION(BlueprintPure, Category = QueueManager)
+		UQueueCandidateComponent* PeakQueue() const
+	{
+		return QueueCandidates.IsValidIndex(0) ? QueueCandidates[0] : nullptr;
+	};
+
+	/** Uses the Next Queue Candidate in the Queue
+	 * Returns Queue Candidate and Removes from the Queue
+	 */
+	UFUNCTION(BlueprintCallable, Category = QueueManager)
+		UQueueCandidateComponent* Dequeue();
+		
 	/** Gets Candidate Slot in the Queue
 	 * @return Candidate Slot Index or -1 If not Part of the Queue
 	 */

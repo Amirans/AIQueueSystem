@@ -134,6 +134,23 @@ bool AQueueManager::HandleDirtyCandidate(UQueueCandidateComponent* QueueCandidat
 	return false;
 }
 
+UQueueCandidateComponent* AQueueManager::Dequeue()
+{
+	/* Validate We have At least On Candidate in the Queue */
+	if (!QueueCandidates.IsValidIndex(0))
+	{
+		return nullptr;
+	}
+
+	/* Cache the First Element */
+	UQueueCandidateComponent* FirstCandidate = QueueCandidates[0];
+
+	/* De Register Candidate */
+	DeregisterCandidate(FirstCandidate);
+
+	return FirstCandidate;
+}
+
 int32 AQueueManager::GetCandidateSlotIndex(const UQueueCandidateComponent* QueueCandidateComp) const
 {
 	/* Iterate Through Return the Index of the Candidate */
